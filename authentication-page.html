@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        /* Form Container Styling */
+        .container {
+            background-color: white;
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            flex-grow: 1;
+        }
+
+        h2 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        /* Input Field Styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group input[type="email"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+
+        /* Radio Button Styling */
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+        }
+
+        /* Error Message Styling */
+        .error {
+            color: #d9534f;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            background-color: #0056b3;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004494;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </header>
+
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm">
+            
+            <div class="form-group">
+                <label for="username">Username (min 4 characters):</label>
+                <input type="text" id="username" placeholder="nom">
+                <span id="usernameError" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password (must contain 1 special character, 1 capital letter, and 1 number):</label>
+                <input type="password" id="password" placeholder="********">
+                <span id="passwordError" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="cnic">CNIC (XXXXX-XXXXXXX-X):</label>
+                <input type="text" id="cnic" placeholder="36402-8342685-7">
+                <span id="cnicError" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number (03XXXXXXXXX):</label>
+                <input type="text" id="phone" placeholder="03096216992">
+                <span id="phoneError" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="chnoman860@gmail.com">
+                <span id="emailError" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="Male"> Male</label>
+                    <label><input type="radio" name="gender" value="Female"> Female</label>
+                </div>
+                <span id="genderError" class="error"></span>
+            </div>
+
+            <h3>Registration</h3>
+
+            <div class="form-group">
+                <label for="program">Select Program:</label>
+                <select id="program">
+                    <option value="BS">BS</option>
+                    <option value="MS">MS</option>
+                </select>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <footer>
+        All Rights Reserved
+    </footer>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting normally
+            
+            let isValid = true;
+
+            // 1. Username Validation
+            const username = document.getElementById('username').value;
+            if (username.length < 4) {
+                document.getElementById('usernameError').textContent = 'Username must be at least 4 characters long.';
+                isValid = false;
+            } else {
+                document.getElementById('usernameError').textContent = '';
+            }
+
+            // 2. Password Validation
+            const password = document.getElementById('password').value;
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{6,}$/;
+            if (!passwordRegex.test(password)) {
+                document.getElementById('passwordError').textContent = 'Password must contain at least one uppercase letter, one number, and one special character.';
+                isValid = false;
+            } else {
+                document.getElementById('passwordError').textContent = '';
+            }
+
+            // 3. CNIC Validation
+            const cnic = document.getElementById('cnic').value;
+            const cnicRegex = /^\d{5}-\d{7}-\d{1}$/;
+            if (!cnicRegex.test(cnic)) {
+                document.getElementById('cnicError').textContent = 'CNIC must follow the format XXXXX-XXXXXXX-X.';
+                isValid = false;
+            } else {
+                document.getElementById('cnicError').textContent = '';
+            }
+
+            // 4. Phone Validation
+            const phone = document.getElementById('phone').value;
+            const phoneRegex = /^03\d{9}$/;
+            if (!phoneRegex.test(phone)) {
+                document.getElementById('phoneError').textContent = 'Phone number must follow the format 03XXXXXXXXX.';
+                isValid = false;
+            } else {
+                document.getElementById('phoneError').textContent = '';
+            }
+
+            // 5. Email Validation
+            const email = document.getElementById('email').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                isValid = false;
+            } else {
+                document.getElementById('emailError').textContent = '';
+            }
+
+            // 6. Gender Validation
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                document.getElementById('genderError').textContent = 'Please select your gender.';
+                isValid = false;
+            } else {
+                document.getElementById('genderError').textContent = '';
+            }
+
+            // Final check
+            if (isValid) {
+                alert('Registration successful!');
+            }
+        });
+    </script>
+</body>
+</html>
